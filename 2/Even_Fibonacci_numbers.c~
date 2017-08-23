@@ -1,0 +1,20 @@
+#include<stdio.h>
+
+int main(){
+
+  int i;
+  int fibonacci;
+  int fibonacci_pre1 = 1, fibonacci_pre2 = 2;
+
+  printf("%d\n%d\n", fibonacci_pre1, fibonacci_pre2);
+  fibonacci = fibonacci_pre1 + fibonacci_pre2;
+  for(i = fibonacci; i < 4000000;){
+    fibonacci_pre1 = fibonacci_pre2;
+    fibonacci_pre2 = fibonacci;
+    fibonacci = fibonacci_pre1 + fibonacci_pre2;
+    printf("%d\n", fibonacci);
+    i = fibonacci;
+  }
+
+  return 0;
+}
