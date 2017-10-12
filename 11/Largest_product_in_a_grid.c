@@ -1,7 +1,11 @@
 #include <stdio.h>
+#define NUM 4
 
 int main(void)
 {
+  int i, j, k;
+  int multi = 1, max = 0;
+  int fournum[4], fournum2[4];
   int grid[20][20] = {{ 8,  2, 22, 97, 38, 15,  0, 40,  0, 75,  4,  5,  7, 78, 52, 12, 50, 77, 91,  8},
                       {49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48,  4, 56, 62,  0},
                       {81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30,  3, 49, 13, 36, 65},
@@ -22,5 +26,71 @@ int main(void)
                       {20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74,  4, 36, 16},
                       {20, 73, 35, 29, 78, 31, 90,  1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57,  5, 54},
                       { 1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52,  1, 89, 19, 67, 48}};
+
+  for(i = 0; i < 20 - NUM; i++){
+    for(j = 0; j <= 20 - NUM; j++){
+      for(k = 0; k < NUM; k++){
+        multi *= grid[i][j+k];
+        fournum[k] = grid[i][j+k];
+      }
+      if(max < multi){
+        max = multi;
+        for(k = 0; k < NUM; k++)
+          fournum2[k] = fournum[k];
+      }
+      multi = 1;
+    }
+  }
+
+  for(i = 0; i <= 20 - NUM; i++){
+    for(j = 0; j < 20; j++){
+      for(k = 0; k < NUM; k++){
+        multi *= grid[i+k][j];
+        fournum[k] = grid[i+k][j];
+      }
+      if(max < multi){
+        max = multi;
+        for(k = 0; k < NUM; k++)
+          fournum2[k] = fournum[k];
+      }
+      multi = 1;
+    }
+  }
+
+  for(i = 0; i <= 20 - NUM ; i++){
+    for(j = 0; j <= 20 - NUM; j++){
+      for(k = 0; k < NUM; k++){
+        multi *= grid[i+k][j+k];
+        fournum[k] = grid[i+k][j+k];
+      }
+      if(max < multi){
+        max = multi;
+        for(k = 0; k < NUM; k++)
+          fournum2[k] = fournum[k];
+      }
+      multi = 1;
+    }
+  }
+
+  for(i = NUM-1; i <= 20 - NUM ; i++){
+    for(j = 0; j <= 20 - NUM; j++){
+      for(k = 0; k < NUM; k++){
+        multi *= grid[i-k][j+k];
+        fournum[k] = grid[i-k][j+k];
+      }
+      if(max < multi){
+        max = multi;
+        for(k = 0; k < NUM; k++)
+          fournum2[k] = fournum[k];
+      }
+      multi = 1;
+    }
+  }
+
+  for(k = 0; k < NUM; k++){
+    printf("%d ", fournum2[k]);
+  }
+  printf("\n%d\n", max);
+
   return 0;
 }
